@@ -276,7 +276,7 @@ void InferenceContext::ReserveGraphTensors(
               gpu_info, shape,
               TensorDescriptor{data_type, TensorStorageType::SINGLE_TEXTURE_2D,
                                layout})) {
-        storage_type = TensorStorageType::SINGLE_TEXTURE_2D;
+        storage_type = gpu_info.SupportsImages() ? TensorStorageType::SINGLE_TEXTURE_2D : TensorStorageType::BUFFER;
       }
     }
     storage_type =

@@ -549,7 +549,7 @@ void ConvolutionTransposed::GetPossibleKernelWorkGroups(
 ConvolutionTransposed CreateConvolutionTransposed(
     const GpuInfo& gpu_info, const OperationDef& definition,
     const ConvolutionTransposedAttributes& attr) {
-  const bool weights_are_buffer = gpu_info.IsMali();
+  const bool weights_are_buffer = !gpu_info.SupportsImages() || gpu_info.IsMali();
   ConvolutionTransposed result(definition, attr, gpu_info, weights_are_buffer);
   result.UploadWeights(attr.weights, weights_are_buffer);
 
